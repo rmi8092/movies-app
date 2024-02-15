@@ -1,0 +1,39 @@
+.footer {
+  padding: 38px 32px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 32px;
+  background-color: var(--black-color);
+  color: var(--white-color);
+  height: 285px;
+}
+
+.footer ul {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 16px;
+  list-style: none;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 40%;
+}
+
+.footer ul li {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {  
+  .footer {
+    flex-wrap: nowrap;
+    height: 220px;
+    width: 80%;
+  }
+
+  .footer ul {
+    width: auto;
+  }
+}

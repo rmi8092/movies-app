@@ -1,0 +1,22 @@
+'use client'
+  
+function ErrorLogin({
+  error,
+  reset,
+}: {
+  error: Error & { digest?: string }
+  reset: () => void
+}) {
+  return (
+    <div>
+      <h2>{error.message}</h2>
+      <button
+        onClick={() => reset()}
+      >
+        Try again
+      </button>
+    </div>
+  )
+}
+
+export default ErrorLogin

@@ -1,0 +1,43 @@
+.genre__title {
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.genre__carousel {
+  display: flex;
+  gap: 32px;
+  padding: 28px 0 28px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.genre__image-wrapper {
+  max-width: 261px;
+  max-height: 386px;
+}
+
+.genre__image-wrapper--coming-soon {
+  max-width: 400px;
+  max-height: 260px;
+}
+
+.genre__image {
+  border-radius: 16px;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .genre__title {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .genre__title {
+    margin: 60px 0 24px 0;
+    font-size: 78px;
+  }
+}

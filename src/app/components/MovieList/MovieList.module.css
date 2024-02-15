@@ -1,0 +1,48 @@
+.movie-list {
+  background: var(--medium-grey-color);
+  padding-left: 16px;
+  padding-top: 40px;
+}
+
+.filter {
+  display: flex;
+  gap: 16px;
+  margin: 0 0 30px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter__button {
+  min-width: 125px;
+  max-width: 125px;
+  height: 46px;
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .movie-list {
+    padding-left: 32px;
+    padding-top: 40px;
+    padding-bottom: 12px;
+  }
+
+  .filter {
+    margin: 0 0 30px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .movie-list {
+    padding-left: 120px;
+    padding-top: 40px;
+  }
+
+  .filter {
+    margin: 0 0 32px;
+  }
+}

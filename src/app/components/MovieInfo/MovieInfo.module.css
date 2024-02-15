@@ -1,0 +1,9 @@
+.movie-details__info {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.movie-details__label {
+  margin-right: 8px;
+}

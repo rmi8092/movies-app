@@ -1,0 +1,21 @@
+.movie-details__rating {
+  display: flex;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.movie-details__label {
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.movie-details__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.movie-details__info-star {
+  width: 20px;
+  height: 20px;
+  background: url('/assets/star.png'), transparent 50% / cover no-repeat;
+}

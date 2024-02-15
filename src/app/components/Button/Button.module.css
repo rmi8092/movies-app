@@ -1,0 +1,26 @@
+.button {
+  border-radius: 16px;
+  border: none;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.button--primary {
+  color: var(--white-color);
+  background: var(--primary-color);
+}
+
+.button--primary:hover {
+  background: var(--primary-color-hover);
+}
+
+.button--secondary {
+  color: var(--black-color);
+  background: var(--white-color);
+}
+
+.button--secondary:hover {
+  background: var(--white-color-hover);
+}
+
