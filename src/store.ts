@@ -11,7 +11,7 @@ type Store = {
   comingSoonMovies: Movie[]
   setMovies: (moviesAPI: Movie[]) => void
   setGenres: (genresAPI: MovieGenre[]) => void
-  setSelectedMovie: (userSelectedMovie: Movie) => void
+  setSelectedMovie: (userSelectedMovie: Movie | null) => void
   setUserFavorites: (userList: Movie[]) => void
   setComingSoonMovies: (movies: Movie[]) => void
 }
@@ -24,7 +24,7 @@ export const useStore = create<Store>()((set) => ({
   comingSoonMovies: [],
   setMovies: (moviesAPI: Movie[]) => set((state) => ({ movies: moviesAPI })),
   setGenres: (genresAPI: MovieGenre[]) => set((state) => ({ genres: genresAPI })),
-  setSelectedMovie: (userSelectedMovie: Movie) => set((state) => ({ selectedMovie: userSelectedMovie })),
+  setSelectedMovie: (userSelectedMovie: Movie | null) => set((state) => ({ selectedMovie: userSelectedMovie })),
   setUserFavorites: (userList: Movie[]) => set((state) => ({ userFavorites: userList })),
   setComingSoonMovies: (movies: Movie[]) => set((state) => ({ comingSoonMovies: movies })),
 }))

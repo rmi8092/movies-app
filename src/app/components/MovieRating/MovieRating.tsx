@@ -8,7 +8,7 @@ import { MovieRatingProps } from '@/app/types/movie';
 
 
 function MovieRating({ rating }: MovieRatingProps) {
-  const ratingArray = new Array(rating).fill(null);
+  const ratingArray = new Array(Math.floor(rating)).fill(null);
 
   return (
     <div className={styles['movie-details__rating']}>

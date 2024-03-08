@@ -20,7 +20,7 @@ const HighlightedMovies = ({ highlightedMovies }: {highlightedMovies: Movie[]}) 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % highlightedMovies.length);
-    }, 1000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [highlightedMovies.length]);
@@ -29,8 +29,8 @@ const HighlightedMovies = ({ highlightedMovies }: {highlightedMovies: Movie[]}) 
     setCurrentImageIndex(index);
   }
 
-  const truncateDescription = (description: string): string => {
-    return `${description.substring(0, 200)}...`
+  const truncateDescription = (overview: string): string => {
+    return `${overview.substring(0, 200)}...`
   }
 
   function handleDiscoverMovie(movie: Movie): void {
@@ -49,7 +49,7 @@ const HighlightedMovies = ({ highlightedMovies }: {highlightedMovies: Movie[]}) 
         <div key={movie.id} className={styles['slider__image-wrapper']} style={{ display: index === currentImageIndex ? 'block' : 'none' }}>
           <div className={styles.slider__info}>
             <h1 className={`${robotoCondensed.className} antialiased ${styles.slider__title}`}>{movie.title}</h1>
-            <p className={`${robotoUltraLight.className} antialiased ${styles.slider__description}`}>{truncateDescription(movie.description)}</p>
+            <p className={`${robotoUltraLight.className} antialiased ${styles.slider__description}`}>{truncateDescription(movie.overview)}</p>
             <Button
               classes={`${robotoCondensed.className} antialiased ${styles['slider__action-button']}`}
               text='Discover'
@@ -59,9 +59,11 @@ const HighlightedMovies = ({ highlightedMovies }: {highlightedMovies: Movie[]}) 
           </div>
           <Image
             className={styles['slider__image']}
-            src={movie.poster}
-            alt={movie.poster}
+            src={`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`}
+            alt={movie.backdrop_path}
             fill={true}
+            sizes="100vw"
+            priority={true}
           />
         </div>
       ))}

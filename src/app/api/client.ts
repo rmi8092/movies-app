@@ -1,8 +1,9 @@
-import { MovieGenre, UserFavorites, Movie } from "@/app/types/movie";
+import { MovieGenre, UserFavorites, Movie, MoviesResponse, UpcomingMoviesResponse, MovieGenreResponse, MovieCastResponse } from "@/app/types/movie";
 import {BASE_URL} from '@/app/constants';
 import {generateRequestOptions} from '@/app/utils/common';
 import { useAuthStore } from '@/store';
 import { SigninResponse } from "@/app/types/auth";
+import { headers } from "next/headers";
 
 export const MoviesClient = {
   async signIn(username: string, password: string): Promise<boolean> {
@@ -22,22 +23,43 @@ export const MoviesClient = {
     useAuthStore.getState().login(tokenResponse.token);
     return true
   },
-  async getMovies(): Promise<Movie[]> {
-    const res: Response = await fetch(`${BASE_URL}/movies`, generateRequestOptions({method: 'GET', auth: true}));
+  async getMovies(): Promise<MoviesResponse> {
+    const res: Response = await fetch(`${process.env.API_URL}/movie/top_rated?language=en-US&page=1`, generateRequestOptions({method: 'GET', auth: true}));
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }
     return res.json()
   },
-  async getGenres(): Promise<MovieGenre[]> {
-    const res = await fetch(`${BASE_URL}/genres`, generateRequestOptions({method: 'GET', auth: true}))
+  async getPopularMovies(): Promise<MoviesResponse> {
+    const res: Response = await fetch(`${process.env.API_URL}/movie/popular?language=en-US&page=1`, generateRequestOptions({method: 'GET', auth: true}));
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }
     return res.json()
   },
-  async getUser(): Promise<UserFavorites> {
-    const res = await fetch(`${BASE_URL}/user`, generateRequestOptions({method: 'GET', auth: true}))
+  async getGenres(): Promise<MovieGenreResponse> {
+    const res: Response = await fetch(`${process.env.API_URL}/genre/movie/list?language=en`, generateRequestOptions({method: 'GET', auth: true}));
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+  },
+  /* async getCast(movieId: number): Promise<MovieCastResponse> {
+    const res: Response = await fetch(`${process.env.API_URL}/movie/${movieId}/credits?language=en`, generateRequestOptions({method: 'GET', auth: true}));
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+  }, */
+  async getUpcomingMovies(): Promise<UpcomingMoviesResponse> {
+    const res: Response = await fetch(`${process.env.API_URL}/genre/movie/list?language=en`, generateRequestOptions({method: 'GET', auth: true}));
+    if (!res.ok) {
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+  },
+  async getUser(): Promise<any[]> {// Promise<Movie[]> {
+    const res: Response = await fetch(`${process.env.API_URL}/account/20932764/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, generateRequestOptions({method: 'GET', auth: true}));
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }

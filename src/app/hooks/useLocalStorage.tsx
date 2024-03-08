@@ -11,7 +11,7 @@ export function useLocalStorageMovie() {
     }
   }, []);
 
-  const updateLocalStorageMovie = (newMovie: Movie) => {
+  const updateLocalStorageMovie = (newMovie: Movie | null) => {
     localStorage.setItem('selectedMovieLS', JSON.stringify(newMovie));
     setMovie(newMovie);
   };

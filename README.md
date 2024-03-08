@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, you should get a The Movie DB (TMDB) personal API token. Once you have this token create a .env.local file following the pattern shown in .env.local.sample file, you will see this file in the root of the project.
+
+Then, run the development server:
 
 ```bash
 npm run dev

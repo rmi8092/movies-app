@@ -4,12 +4,12 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-import {useStore} from './../../../store';
+import {useStore} from '@/store';
 import {Movie, GenreCarouselProps, ImageSize} from '@/app/types/movie';
 import styles from './GenreCarousel.module.css';
 import {dashTitle} from '@/app/utils/common';
 import {robotoCondensed} from './../../../../public/fonts/fonts';
-import { MOVIE_PATH } from '@/app/constants';
+import { MOVIE_PATH, COMING_SOON } from '@/app/constants';
 
 function GenreCarousel({title, movies, visible, genre}: GenreCarouselProps) {
   const router = useRouter();
@@ -21,8 +21,8 @@ function GenreCarousel({title, movies, visible, genre}: GenreCarouselProps) {
   }
 
   useEffect(() => {
-    const width = genre === 'comingSoon' ? 400 : 261
-    const height = genre === 'comingSoon' ? 261 : 386
+    const width = genre === COMING_SOON.genre ? 400 : 261
+    const height = genre === COMING_SOON.genre ? 261 : 386
     setImageSize({width, height})
   }, [])
 
@@ -44,12 +44,12 @@ function GenreCarousel({title, movies, visible, genre}: GenreCarouselProps) {
                   return (
                     <div
                       key={movie.id}
-                      className={`${genre === 'comingSoon' ? styles['genre__image-wrapper--coming-soon'] : styles['genre__image-wrapper']}`}
+                      className={`${genre === COMING_SOON.genre ? styles['genre__image-wrapper--coming-soon'] : styles['genre__image-wrapper']}`}
                     >
                       <Image
                         className={styles['genre__image']}
-                        src={movie.thumbnail}
-                        alt={movie.thumbnail}
+                        src={`https://image.tmdb.org/t/p/original/${genre === COMING_SOON.genre ? movie.backdrop_path : movie.poster_path}`}
+                        alt={movie.backdrop_path}
                         width={imageSize.width}
                         height={imageSize.height}
                         onClick={() => handleSelectMovie(movie)}

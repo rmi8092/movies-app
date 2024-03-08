@@ -1,4 +1,3 @@
-import {useAuthStore} from '@/store';
 import { GenerateRequestOptionsProps } from "@/app/types/auth";
 
 export const dashTitle = (title: string) => {
@@ -12,14 +11,13 @@ export const isFutureDate = (dateString: string): boolean => {
 }
 
 export const generateRequestOptions = ({ method, payload = false, auth = false }: GenerateRequestOptionsProps) => {
-  const token = useAuthStore.getState().token
   let headers: HeadersInit = {
       'Content-Type': 'application/json',
   };
   if (auth) {
     headers = {
       ...headers,
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${process.env.ACCESS_TOKEN_AUTH}`
     };
   }
   if (payload) {

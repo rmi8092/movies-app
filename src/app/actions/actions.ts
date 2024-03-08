@@ -1,7 +1,7 @@
 'use server'
 
 import {BASE_URL} from '@/app/constants';
-import { UserFavorites } from "@/app/types/movie";
+import { UserFavorites, MovieCastResponse } from "@/app/types/movie";
 import { useAuthStore } from '@/store';
 
 export async function addFavorite(id: string): Promise<UserFavorites> {
@@ -53,3 +53,17 @@ export async function signOut(): Promise<boolean> {
   return true
 }
 
+export async function getMovieCast(movieId: number): Promise<MovieCastResponse> {
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${process.env.ACCESS_TOKEN_AUTH}`
+    },
+  };
+  const res = await fetch(`${process.env.API_URL}/movie/${movieId}/credits?language=en`, requestOptions)
+  if (!res.ok) {
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}

@@ -16,6 +16,7 @@
 
 .hero__back:hover {
   transform: scale(85%);
+  cursor: pointer;
 }
 
 .hero__poster {

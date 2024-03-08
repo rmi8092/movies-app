@@ -8,15 +8,37 @@ import MovieInfo from '@/app/components/MovieInfo/MovieInfo';
 import { MovieDetailsProps } from '@/app/types/movie';
 import {useStore} from '@/store';
 
-function MovieData({ rating = null, cast, genre}: MovieDetailsProps) {
+function MovieDetails({ rating = null, cast, genreIds}: MovieDetailsProps) {
   const {genres} = useStore();
-  const [genreName, setGenreName] = useState<string>('');
+  const [computedGenre, setComputedGenre] = useState<string>('');
+  const [computedCast, setComputedCast] = useState<string>('');
+
+  function computeMovieGenres() {
+    const genreNamesArray = genreIds.map(genreId => {
+      const foundGenre = genres.find(genre => Number(genre.id) === genreId);
+      return foundGenre ? foundGenre.name : null;
+    }).filter(computedGenre => computedGenre !== null);
+
+    if (genreNamesArray) {
+      setComputedGenre(genreNamesArray.join(' - '));
+    }
+  }
+
+  function computeMovieCast() {
+    if (!cast || cast.length === 0) {
+      setComputedCast('');
+      return;
+    }
+    let namesString = cast.slice(0, 5).map(obj => obj.name).join(', ');
+    if (cast.length > 5) {
+        namesString += ', and more';
+    }
+    setComputedCast(namesString);
+  }
 
   useEffect(() => {
-    const movieGenre = genres.find(genreItem => genreItem.id === genre)
-    if(movieGenre) {
-      setGenreName(movieGenre.name)
-    }
+    computeMovieGenres();
+    computeMovieCast();
   }, [])
 
   return (
@@ -24,10 +46,10 @@ function MovieData({ rating = null, cast, genre}: MovieDetailsProps) {
       {rating && (
         <MovieRating rating={rating}/>
       )}
-      <MovieInfo label="Cast" info={cast}/>
-      <MovieInfo label="Genre" info={genreName}/>
+      <MovieInfo label="Cast" info={computedCast}/>
+      <MovieInfo label="Genre" info={computedGenre}/>
     </section>
   );
 };
 
-export default MovieData;
+export default MovieDetails;
