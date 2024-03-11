@@ -8,17 +8,23 @@ import Button from '@/app/components/Button/Button';
 import { GenreData, MovieGenre, MovieListProps } from '@/app/types/movie';
 import GenreCarousel from '../GenreCarousel/GenreCarousel';
 import { robotoCondensed } from './../../../../public/fonts/fonts';
-import { INITIAL_GENRES_BUTTONS_STATE } from '@/app/constants';
+import { COMING_SOON, INITIAL_GENRES_BUTTONS_STATE } from '@/app/constants';
 
 function MovieList({movies, genres, /* userFavMovies ,*/ comingSoonMovies}:  MovieListProps) {
   const {setUserFavorites, setGenres, setComingSoonMovies} = useStore();
   const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
   const [genreData, setGenreData] = useState<GenreData[]>([])
+  const [comingSoon, setComingSoon] = useState<GenreData>()
   const [buttonClicked, setButtonClicked] = useState<{ [key: string]: boolean }>(INITIAL_GENRES_BUTTONS_STATE);
 
   useEffect(() => {
     setGenres(genres);
     setComingSoonMovies(comingSoonMovies);
+    setComingSoon({
+      title: COMING_SOON.title,
+      movies: [...comingSoonMovies],
+      genre: COMING_SOON.genre
+    })
   }, [genres, comingSoonMovies]);
 
   useEffect(() => {
@@ -87,6 +93,15 @@ function MovieList({movies, genres, /* userFavMovies ,*/ comingSoonMovies}:  Mov
           visible={true}
         />
       ))}
+      {comingSoon && (
+        <GenreCarousel
+          key={comingSoon.title}
+          title={comingSoon.title}
+          movies={comingSoonMovies}
+          genre={comingSoon.genre}
+          visible={true}
+        />
+      )}
     </main>
   );
 };

@@ -28,12 +28,10 @@ export default async function Home() {
   /* const userFavMoviesPromises = userList.map(async (userFavId: string) => {
     return await MoviesClient.getMovieById(userFavId)
   })
-  const userFavMovies = await Promise.all(userFavMoviesPromises); 
-  const highlightedMovies = movies.filter(movie => movie.highlighted)
-  const comingSoonMovies = movies.filter(movie => isFutureDate(movie.availableDate)) */
+  const userFavMovies = await Promise.all(userFavMoviesPromises); */
 
   const highlightedMovies: Movie[] = [...popularMovies.results.slice(0, 5)]
-  const comingSoonMovies: Movie[] = [...popularMovies.results.slice(0, 10)]
+  const comingSoonMovies: Movie[] = [...upcomingMovies.results.slice(0, 10)]
 
   return (
     <>

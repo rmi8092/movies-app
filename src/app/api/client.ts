@@ -52,7 +52,7 @@ export const MoviesClient = {
     return res.json()
   }, */
   async getUpcomingMovies(): Promise<UpcomingMoviesResponse> {
-    const res: Response = await fetch(`${process.env.API_URL}/genre/movie/list?language=en`, generateRequestOptions({method: 'GET', auth: true}));
+    const res: Response = await fetch(`${process.env.API_URL}/movie/upcoming?language=en`, generateRequestOptions({method: 'GET', auth: true}));
     if (!res.ok) {
       throw new Error('Failed to fetch data')
     }

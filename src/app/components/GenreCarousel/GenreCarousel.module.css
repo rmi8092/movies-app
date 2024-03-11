@@ -19,8 +19,17 @@
 }
 
 .genre__image-wrapper--coming-soon {
+  position: relative;
   max-width: 400px;
   max-height: 260px;
+}
+
+.genre__image-wrapper--badge {
+  position: absolute;
+  padding: 6px 12px;
+  background: var(--primary-color);
+  border-radius: 14px 0 6px 0;
+  max-width: 80%;
 }
 
 .genre__image {

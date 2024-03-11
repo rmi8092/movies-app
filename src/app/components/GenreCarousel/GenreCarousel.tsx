@@ -46,6 +46,7 @@ function GenreCarousel({title, movies, visible, genre}: GenreCarouselProps) {
                       key={movie.id}
                       className={`${genre === COMING_SOON.genre ? styles['genre__image-wrapper--coming-soon'] : styles['genre__image-wrapper']}`}
                     >
+                      {genre === COMING_SOON.genre && <span className={styles['genre__image-wrapper--badge']}>{movie.title}</span>}
                       <Image
                         className={styles['genre__image']}
                         src={`https://image.tmdb.org/t/p/original/${genre === COMING_SOON.genre ? movie.backdrop_path : movie.poster_path}`}
