@@ -4,20 +4,20 @@ import {robotoMedium} from './../../../../public/fonts/fonts';
 
 const footerLinks = [
   [
-    'Link 1',
-    'Link 2',
-    'Link 3',
-    'Link 4'
+    'Footer Link 1',
+    'Footer Link 2',
+    'Footer Link 3',
+    'Footer Link 4'
   ],
   [
-    'Link 5',
-    'Link 6'
+    'Footer Link 5',
+    'Footer Link 6'
   ],
   [
-    'Link 7'
+    'Footer Link 7'
   ],
   [
-    'Link 8'
+    'Footer Link 8'
   ]
 ];
 
