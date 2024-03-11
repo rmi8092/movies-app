@@ -15,10 +15,11 @@ import { useLocalStorageMovie } from '@/app/hooks/useLocalStorage';
 import { getMovieCast } from '@/app/actions/actions';
 import { Cast } from '../../types/movie';
 import { HOME_PATH } from '@/app/constants';
+import { isFutureDate } from '@/app/utils/common';
 
 function MovieComponent() {
   const router = useRouter();
-  const { selectedMovie, setSelectedMovie, comingSoonMovies } = useStore();
+  const { selectedMovie, setSelectedMovie } = useStore();
   const { movie, updateLocalStorageMovie } = useLocalStorageMovie();
   const [isComingSoonMovie, setIsComingSoonMovie] = useState<boolean>(false)
   const [cast , setCast] = useState<Cast[]>()
@@ -29,10 +30,6 @@ function MovieComponent() {
   }
 
   useEffect(() => {
-    const isComingSoon = comingSoonMovies.some(movie => movie.id === selectedMovie?.id)
-    if (isComingSoon) {
-      setIsComingSoonMovie(true)
-    }
     if(selectedMovie?.id) {
       getCast(selectedMovie.id)
     }
@@ -40,6 +37,7 @@ function MovieComponent() {
 
   useEffect(() => {
     if(movie?.id) {
+      togglePlayButton(movie.release_date)
       getCast(movie.id)
     }
   }, [movie]);
@@ -49,6 +47,11 @@ function MovieComponent() {
       updateLocalStorageMovie(selectedMovie);
     }
   }, [selectedMovie]);
+
+  function togglePlayButton(movieReleaseDate: string) {
+    const isComingSoon = isFutureDate(movieReleaseDate)
+    setIsComingSoonMovie(isComingSoon ? true : false)
+  }
 
   function handleGoBack() {
     updateLocalStorageMovie(null);
