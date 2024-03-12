@@ -12,9 +12,9 @@ import FavoriteMovie from '@/app/components/FavoriteMovie/FavoriteMovie';
 import AvatarSignout from '@/app/components/AvatarSignout/AvatarSignout';
 import {robotoCondensed, robotoUltraLight} from './../../../../public/fonts/fonts';
 import { useLocalStorageMovie } from '@/app/hooks/useLocalStorage';
-import { getMovieCast } from '@/app/actions/actions';
-import { Cast } from '../../types/movie';
-import { HOME_PATH } from '@/app/constants';
+import { getMovieCast, getMovieVideos } from '@/app/actions/actions';
+import { Cast, TrailerData } from '../../types/movie';
+import { HOME_PATH, TRAILER, TRAILER_ERROR_MESSAGE, VIMEO_URL, YOUTUBE, YOUTUBE_URL } from '@/app/constants';
 import { isFutureDate } from '@/app/utils/common';
 
 function MovieComponent() {
@@ -23,10 +23,22 @@ function MovieComponent() {
   const { movie, updateLocalStorageMovie } = useLocalStorageMovie();
   const [isComingSoonMovie, setIsComingSoonMovie] = useState<boolean>(false)
   const [cast , setCast] = useState<Cast[]>()
+  const [trailerData , setTrailerData] = useState<TrailerData>()
 
   async function getCast(movieId: number) {
     const movieCast = await getMovieCast(movieId)
     setCast(movieCast.cast)
+  }
+
+  async function getTrailer(movieId: number) {
+    const movieVideos = await getMovieVideos(movieId)
+    for (const video of movieVideos.results) {
+      if (video.type === TRAILER) {
+        const {key, site} = video
+        setTrailerData({key, site})
+        break;
+      }
+    };
   }
 
   useEffect(() => {
@@ -48,6 +60,12 @@ function MovieComponent() {
     }
   }, [selectedMovie]);
 
+  useEffect(() => {
+    if (trailerData) {
+      showTrailer(trailerData);
+    }
+  }, [trailerData]);
+
   function togglePlayButton(movieReleaseDate: string) {
     const isComingSoon = isFutureDate(movieReleaseDate)
     setIsComingSoonMovie(isComingSoon ? true : false)
@@ -57,6 +75,22 @@ function MovieComponent() {
     updateLocalStorageMovie(null);
     setSelectedMovie(null)
     router.push(HOME_PATH)
+  }
+
+  function handleTrailer() {
+    if(movie?.id) {
+      getTrailer(movie.id)
+    }
+  }
+
+  function showTrailer(trailerData: TrailerData) {
+    const siteDomain = trailerData.site === YOUTUBE ? YOUTUBE_URL : VIMEO_URL
+    const newWindow = window.open('about:blank', '_blank', 'width=800,height=600');
+    if (newWindow) {
+      newWindow.location.href = `${siteDomain}${trailerData.key}`;
+    } else {
+      alert(TRAILER_ERROR_MESSAGE);
+    }
   }
 
   return (
@@ -75,7 +109,7 @@ function MovieComponent() {
         </div>
         <main className={styles.info}>
           <div className={styles['info__action-buttons']}>
-            <Button classes={`${robotoCondensed.className} antialiased`} text="Trailer" variant="secondary" />
+            <Button classes={`${robotoCondensed.className} antialiased`} text="Trailer" variant="secondary" onClick={handleTrailer}/>
             {!isComingSoonMovie && (
               <Button classes={`${robotoCondensed.className} antialiased`} text="Play" variant="primary" />
             )}

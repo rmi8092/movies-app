@@ -27,3 +27,8 @@ export const INITIAL_GENRES_BUTTONS_STATE = {
   war: false,
   western: false
 };
+export const YOUTUBE = 'YouTube';
+export const YOUTUBE_URL = 'https://www.youtube.com/watch?v=';
+export const VIMEO_URL = 'https://vimeo.com/';
+export const TRAILER = 'Trailer';
+export const TRAILER_ERROR_MESSAGE = 'Popup blocker is preventing the new window from opening.'
