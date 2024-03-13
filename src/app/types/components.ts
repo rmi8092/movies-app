@@ -7,3 +7,10 @@ export interface ButtonProps {
   type?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
+export interface MovieTrailerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  videoSite: string;
+  videoKey: string;
+  setIsPopupOpen: (boolean: boolean) => void;
+}

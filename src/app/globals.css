@@ -92,6 +92,30 @@ a {
   box-shadow:0 0 20px var(--primary-color);
 }
 
+.ReactModal__Content {
+  width: 1162px;
+  height: 700px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  padding-top: 48px;
+}
+
+.ReactModal__Content .trailer-close {
+  cursor: pointer;
+  position: absolute;
+  right: 22px;
+  top: 12px;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  background: url('/assets/close.png'), transparent 50% / cover no-repeat;
+}
+
+.trailer-container iframe {
+  margin-top: 26px;
+}
+
 @keyframes animateC {
   0% {
     transform:rotate(0deg);

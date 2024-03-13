@@ -28,7 +28,9 @@ export const INITIAL_GENRES_BUTTONS_STATE = {
   western: false
 };
 export const YOUTUBE = 'YouTube';
-export const YOUTUBE_URL = 'https://www.youtube.com/watch?v=';
+export const VIMEO = 'Vimeo';
+export const YOUTUBE_URL = 'https://www.youtube.com/embed/';
 export const VIMEO_URL = 'https://vimeo.com/';
 export const TRAILER = 'Trailer';
 export const TRAILER_ERROR_MESSAGE = 'Popup blocker is preventing the new window from opening.'
+export const NO_FULL_MOVIES = 'No full movies to play at the moment';

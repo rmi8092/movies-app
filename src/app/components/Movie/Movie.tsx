@@ -3,6 +3,7 @@
 import {useEffect, useState} from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Tooltip } from 'react-tooltip'
 
 import { useStore } from '@/store';
 import Button from '@/app/components/Button/Button';
@@ -10,11 +11,12 @@ import MovieDetails from '@/app/components/MovieDetails/MovieDetails';
 import styles from './Movie.module.css';
 import FavoriteMovie from '@/app/components/FavoriteMovie/FavoriteMovie';
 import AvatarSignout from '@/app/components/AvatarSignout/AvatarSignout';
+import VideoPopup from '@/app/components/VideoPopup/VideoPopup';
 import {robotoCondensed, robotoUltraLight} from './../../../../public/fonts/fonts';
 import { useLocalStorageMovie } from '@/app/hooks/useLocalStorage';
 import { getMovieCast, getMovieVideos } from '@/app/actions/actions';
 import { Cast, TrailerData } from '../../types/movie';
-import { HOME_PATH, TRAILER, TRAILER_ERROR_MESSAGE, VIMEO_URL, YOUTUBE, YOUTUBE_URL } from '@/app/constants';
+import { HOME_PATH, NO_FULL_MOVIES, TRAILER } from '@/app/constants';
 import { isFutureDate } from '@/app/utils/common';
 
 function MovieComponent() {
@@ -24,6 +26,7 @@ function MovieComponent() {
   const [isComingSoonMovie, setIsComingSoonMovie] = useState<boolean>(false)
   const [cast , setCast] = useState<Cast[]>()
   const [trailerData , setTrailerData] = useState<TrailerData>()
+  const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
 
   async function getCast(movieId: number) {
     const movieCast = await getMovieCast(movieId)
@@ -62,7 +65,7 @@ function MovieComponent() {
 
   useEffect(() => {
     if (trailerData) {
-      showTrailer(trailerData);
+      setIsPopupOpen(true);
     }
   }, [trailerData]);
 
@@ -83,15 +86,9 @@ function MovieComponent() {
     }
   }
 
-  function showTrailer(trailerData: TrailerData) {
-    const siteDomain = trailerData.site === YOUTUBE ? YOUTUBE_URL : VIMEO_URL
-    const newWindow = window.open('about:blank', '_blank', 'width=800,height=600');
-    if (newWindow) {
-      newWindow.location.href = `${siteDomain}${trailerData.key}`;
-    } else {
-      alert(TRAILER_ERROR_MESSAGE);
-    }
-  }
+  const closePopup = () => {
+    setIsPopupOpen(false);
+  };
 
   return (
     movie && cast && (
@@ -111,7 +108,12 @@ function MovieComponent() {
           <div className={styles['info__action-buttons']}>
             <Button classes={`${robotoCondensed.className} antialiased`} text="Trailer" variant="secondary" onClick={handleTrailer}/>
             {!isComingSoonMovie && (
-              <Button classes={`${robotoCondensed.className} antialiased`} text="Play" variant="primary" />
+              <>
+                <a data-tooltip-id="tooltip" data-tooltip-content={NO_FULL_MOVIES} data-tooltip-place="right">
+                  <Button classes={`${robotoCondensed.className} antialiased`} text="Play" variant="primary"/>
+                </a>
+                <Tooltip id="tooltip" style={{ backgroundColor: "rgba(117, 27, 92, 0.7)", fontSize: "16px" }}/>
+              </>
             )}
           </div>
           <FavoriteMovie selectedMovie={movie}/>
@@ -121,6 +123,9 @@ function MovieComponent() {
             <p className={`${robotoUltraLight.className} antialiased ${styles['info__description']}`}>{movie.overview}</p>
           </section>
         </main>
+        {trailerData && isPopupOpen && (
+          <VideoPopup videoSite={trailerData.site} videoKey={trailerData.key} isOpen={isPopupOpen} onClose={closePopup} setIsPopupOpen={setIsPopupOpen}/>
+        )}
       </div>
     )
   );
