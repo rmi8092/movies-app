@@ -14,3 +14,15 @@ export interface MovieTrailerProps {
   videoKey: string;
   setIsPopupOpen: (boolean: boolean) => void;
 }
+
+export interface TruncatedTextProps {
+  text: string;
+  maxLength: number;
+  setIsOpen: (boolean: boolean) => void;
+}
+
+export interface ReviewProps {
+  author: string;
+  updated_at: string;
+  content: string;
+}

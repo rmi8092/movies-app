@@ -1,0 +1,10 @@
+.review__content {
+  font-weight: 200;
+}
+
+.review__show-more {
+  margin-inline-start: 8px;
+  cursor: pointer;
+  color: var(--primary-color-light);
+  font-weight: 400;
+}

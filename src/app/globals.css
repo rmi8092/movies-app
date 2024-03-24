@@ -5,6 +5,7 @@
   --black-opacity: rgba(0,0,0,.5);
   --primary-color: #751B5C;
   --primary-color-hover: #8F2B6C;
+  --primary-color-light: #f07fd1;
   --medium-grey-color: #222;
   --dark-grey-color: rgba(255, 255, 255, 0.10);
 }
@@ -92,16 +93,26 @@ a {
   box-shadow:0 0 20px var(--primary-color);
 }
 
-.ReactModal__Content {
-  width: 1162px;
-  height: 700px;
+.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.ReactModal__Overlay {
+  height: 100vh;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.ReactModal__Content{
+  height: auto;
   display: flex;
   align-self: center;
   justify-self: center;
-  padding-top: 48px;
+  padding: 0 !important;
 }
 
-.ReactModal__Content .trailer-close {
+.modal-close {
   cursor: pointer;
   position: absolute;
   right: 22px;
@@ -110,10 +121,6 @@ a {
   width: 24px;
   height: 24px;
   background: url('/assets/close.png'), transparent 50% / cover no-repeat;
-}
-
-.trailer-container iframe {
-  margin-top: 26px;
 }
 
 @keyframes animateC {

@@ -34,3 +34,7 @@ export const VIMEO_URL = 'https://vimeo.com/';
 export const TRAILER = 'Trailer';
 export const TRAILER_ERROR_MESSAGE = 'Popup blocker is preventing the new window from opening.'
 export const NO_FULL_MOVIES = 'No full movies to play at the moment';
+export const REVIEWS = 'Reviews';
+export const REVIEW = 'Review';
+export const SHOW_MORE = 'Show more';
+export const SEE_ALL_REVIEWS = 'See all reviews';

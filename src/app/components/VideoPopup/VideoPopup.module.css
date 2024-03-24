@@ -1,0 +1,12 @@
+.trailer__modal {
+  width: 1162px;
+  height: 700px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
+  padding-top: 48px;
+}
+
+.trailer__modal iframe {
+  margin-top: 26px;
+}
